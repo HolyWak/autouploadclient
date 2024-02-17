@@ -1,0 +1,31 @@
+.custom-checkbox {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(243, 240, 240);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    margin: 10px 10px;
+  }
+  
+  .custom-checkbox.checked {
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+
+  }
+
+  .custom-checkbox:hover {
+    background-color: rgb(255, 181, 44); /* 마우스를 올렸을 때 색상 변경 */
+  }
+  
+
+  .site{
+    text-align: center;
+  }
+
+  .body{
+    text-align: start;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
