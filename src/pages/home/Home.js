@@ -64,7 +64,7 @@ function Home() {
             <div className='footer'>
                 <button className='footer-btn' onClick={() => {
                     console.log(data);
-                    axios.post('localhost:5000/write', data);
+                    axios.post('http://localhost:5000/write', data);
                 }}> 게시물 등록 </button>
             </div>
 
