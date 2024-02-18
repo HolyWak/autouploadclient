@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from "react-redux"
 import { changePlatform, changeBoard, changeTitle } from "./../../states/store"
+import ReactQuill from "react-quill";
 
 
 function Junggo() {
@@ -67,6 +68,7 @@ function Junggo() {
 
     return (
         <div className='Junggo'>
+            <h3>중고나라</h3>
             <div className='Board'>
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
@@ -138,7 +140,9 @@ function Junggo() {
             <button className={`delivery-checkbox ${deliveryOption3 ? 'checked' : ''}`} onClick={handleDeliveryCheckboxChange3}>
                 온라인 전송
             </button>
-            <br />
+            <br/><br/>
+            <ReactQuill></ReactQuill>
+            <br/>
             <label>
                 <input
                     type="checkbox"
@@ -164,7 +168,8 @@ function Junggo() {
                 />
                 <span> 사진 첨부 시 워터마크 추가</span>
             </label>
-
+            <br/>
+            
            
 
         </div>

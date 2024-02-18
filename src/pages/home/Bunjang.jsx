@@ -10,21 +10,21 @@ let Area = styled.input`
     padding: 10px;
     width: 80%;
     height: 100px;
-    background-color: #eaea7e;
+    background-color: #96c596;
     border: none;
     font-size: 20;
     
 `;
 
-function Instagram() {
+function Bunjang() {
     return (
 
         <Box>
-            <Area value='인스타그램 영역' ></Area>
+            <Area value='번개장터 영역' ></Area>
         </Box>
 
 
     )
 }
 
-export default Instagram;
+export default Bunjang;

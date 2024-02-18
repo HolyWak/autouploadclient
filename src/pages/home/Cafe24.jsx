@@ -10,21 +10,21 @@ let Area = styled.input`
     padding: 10px;
     width: 80%;
     height: 100px;
-    background-color: #eaea7e;
+    background-color: #8686ea;
     border: none;
     font-size: 20;
     
 `;
 
-function Instagram() {
+function Cafe24() {
     return (
 
         <Box>
-            <Area value='인스타그램 영역' ></Area>
+            <Area value='카페24 영역' ></Area>
         </Box>
 
 
     )
 }
 
-export default Instagram;
+export default Cafe24;

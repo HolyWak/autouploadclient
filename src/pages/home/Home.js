@@ -5,6 +5,8 @@ import { useState } from 'react';
 import './Home.css'
 import { useSelector } from "react-redux"
 import axios from 'axios'
+import Bunjang from './Bunjang';
+import Cafe24 from './Cafe24';
 
 
 
@@ -55,10 +57,12 @@ function Home() {
             <div className='body'>
                 {isChecked1 && <Junggo />}
                 {isChecked2 && <Instagram />}
+                {isChecked3 && <Bunjang />}
+                {isChecked4 && <Cafe24 />}
             </div>
 
-            <div>
-                <button onClick={() => {
+            <div className='footer'>
+                <button className='footer-btn' onClick={() => {
                     console.log(data);
                     axios.post('localhost:5000/write', data);
                 }}> 게시물 등록 </button>
