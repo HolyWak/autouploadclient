@@ -1,32 +1,35 @@
 .custom-checkbox {
     display: inline-block;
     padding: 10px 20px;
-    background-color: rgb(243, 240, 240);
-    border-radius: 5px;
+    background-color: #E0E0E0;
+    border-radius: 20px;
     cursor: pointer;
     border: none;
     margin: 10px 10px;
   }
   
   .custom-checkbox.checked {
-    background-color: orange;
+    background-color: #F2994A;
     color: white;
-    font-weight: bold;
+    font-weight:bolder;
 
   }
 
+  /* 마우스를 올렸을 때 색상 변경 
   .custom-checkbox:hover {
-    background-color: rgb(255, 181, 44); /* 마우스를 올렸을 때 색상 변경 */
   }
+  */
+  
   
 
   .site{
-    text-align: center;
+    text-align: left;
+    padding: 20px;
   }
 
   .body{
     text-align: start;
-    padding: 20px;
+    padding: 30px;
   }
 
   .footer{

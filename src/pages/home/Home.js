@@ -1,12 +1,9 @@
 import styled from 'styled-components'
-import Instagram from './Instagram';
 import Junggo from './Junggo';
 import { useState } from 'react';
 import './Home.css'
 import { useSelector } from "react-redux"
 import axios from 'axios'
-import Bunjang from './Bunjang';
-import Cafe24 from './Cafe24';
 
 
 
@@ -18,24 +15,21 @@ function Home() {
     let [isChecked1, setIsChecked1] = useState(false)
     let [isChecked2, setIsChecked2] = useState(false)
     let [isChecked3, setIsChecked3] = useState(false)
-    let [isChecked4, setIsChecked4] = useState(false)
 
+
+    //TODO: 여기서 어떤 플랫폼에 등록할지 정하면 state에 저장해야함. 아마도?
     const handleCheckboxChange1 = () => {
         setIsChecked1(!isChecked1);
     };
-
     const handleCheckboxChange2 = () => {
         setIsChecked2(!isChecked2);
     };
-
     const handleCheckboxChange3 = () => {
         setIsChecked3(!isChecked3);
     };
 
-    const handleCheckboxChange4 = () => {
-        setIsChecked4(!isChecked4);
-    };
 
+    //서버로 보낼 데이터 불러옴
     let data = useSelector((state) => { return state.data })
 
     return (
@@ -45,21 +39,18 @@ function Home() {
                     중고나라
                 </button>
                 <button className={`custom-checkbox ${isChecked2 ? 'checked' : ''}`} onClick={handleCheckboxChange2}>
-                    인스타그램
-                </button>
-                <button className={`custom-checkbox ${isChecked3 ? 'checked' : ''}`} onClick={handleCheckboxChange3}>
                     번개장터
                 </button>
-                <button className={`custom-checkbox ${isChecked4 ? 'checked' : ''}`} onClick={handleCheckboxChange4}>
+                <button className={`custom-checkbox ${isChecked3 ? 'checked' : ''}`} onClick={handleCheckboxChange3}>
                     카페24
                 </button>
+
             </div>
             <div className='body'>
-                {isChecked1 && <Junggo />}
-                {isChecked2 && <Instagram />}
-                {isChecked3 && <Bunjang />}
-                {isChecked4 && <Cafe24 />}
+                <Junggo />
+                
             </div>
+
 
             <div className='footer'>
                 <button className='footer-btn' onClick={() => {

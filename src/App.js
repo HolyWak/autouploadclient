@@ -20,12 +20,11 @@ function App() {
             />{' '}
             자동게시물업로드
           </Navbar.Brand>
-        <Button>Info</Button>
+        <Button>계정 관리</Button>
         </Container>
       </Navbar>
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/login'></Route>
         <Route path='/register'></Route>
       </Routes>
     </div>
