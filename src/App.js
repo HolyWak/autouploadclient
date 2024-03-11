@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
 
-      <Navbar className="bg-body-tertiary justify-content-between">
+      <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/">
             <img
@@ -20,7 +20,10 @@ function App() {
             />{' '}
             자동게시물업로드
           </Navbar.Brand>
-        <Button>계정 관리</Button>
+          <Navbar.Collapse className="justify-content-end">
+            <Button>계정 관리</Button>
+          </Navbar.Collapse>
+
         </Container>
       </Navbar>
       <Routes>

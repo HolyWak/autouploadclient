@@ -1,0 +1,125 @@
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
+import { useState } from 'react';
+import styled from 'styled-components'
+
+
+//TODO:x버튼을 누르지 않고 백스페이스로는 지워지지않는 문제 해결
+function Tag() {
+
+    const [tagItem, setTagItem] = useState('')
+    const [tagList, setTagList] = useState([])
+
+    const onKeyPress = e => {
+        if (e.target.value.length !== 0 && e.key === 'Enter') {
+            if (e.nativeEvent.isComposing) return
+            console.log(e.target.value)
+            submitTagItem()
+        }
+    }
+
+    const submitTagItem = () => {
+        let updatedTagList = [...tagList]
+        updatedTagList.push(tagItem)
+        console.log(updatedTagList)
+        setTagList(updatedTagList)
+        setTagItem('')
+    }
+
+    const deleteTagItem = e => {
+        const deleteTagItem = e.target.parentElement.firstChild.innerText
+        const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
+        setTagList(filteredTagList)
+    }
+
+    return (
+        //컴포넌트
+        <div >
+            <Form.Group as={Row} className="mb-3">
+                <Form.Label column sm="2">
+                    태그
+                </Form.Label>
+                <Col >
+                    <TagBox>
+                        {tagList.map((tagItem, index) => {
+                            return (
+                                <TagItem key={index}>
+                                    <Text>{tagItem}</Text>
+                                    <Delbtn onClick={deleteTagItem}>x</Delbtn>
+                                </TagItem>
+                            )
+                        })}
+                        <TagInput
+                            type='text'
+                            placeholder='엔터를 눌러 태그를 추가하세요'
+                            tabIndex={2}
+                            onChange={e => setTagItem(e.target.value)}
+                            value={tagItem}
+                            onKeyDown={onKeyPress}
+                        />
+                    </TagBox>
+
+                </Col>
+            </Form.Group>
+        </div>
+    )
+
+}
+
+
+const TagBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 50px;
+  /* margin: 10px; */
+  padding: 0 10px;
+  border: 1px solid #DEE2E6;
+  border-radius: 10px;
+
+  &:focus-within {
+    border: 3px solid #C7DBFF;
+    
+  }
+`
+
+const TagItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  background-color: #F2994A;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+`
+
+const Text = styled.span``
+
+const Delbtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1px solid white;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  background-color:#F2994A ;
+  color: white;
+  font-size: 10px;
+`
+
+const TagInput = styled.input`
+  display: inline-flex;
+  min-width: 300px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: text;
+`
+
+export default Tag;
