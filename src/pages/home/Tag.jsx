@@ -1,8 +1,10 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux';
+import { changeTagList } from '../../states/store';
 
 
 //TODO:x버튼을 누르지 않고 백스페이스로는 지워지지않는 문제 해결
@@ -10,12 +12,19 @@ function Tag() {
 
     const [tagItem, setTagItem] = useState('')
     const [tagList, setTagList] = useState([])
+    const dispatch = useDispatch()
+
+
+    useEffect(()=>{
+        dispatch(changeTagList(tagList))
+    },[tagList])
 
     const onKeyPress = e => {
         if (e.target.value.length !== 0 && e.key === 'Enter') {
             if (e.nativeEvent.isComposing) return
-            console.log(e.target.value)
             submitTagItem()
+        }else if (e.key === 'Backspace' && !e.target.value && tagList.length > 0){
+            setTagList(tagList.slice(0,tagList.length-1))
         }
     }
 
@@ -52,7 +61,7 @@ function Tag() {
                         })}
                         <TagInput
                             type='text'
-                            placeholder='엔터를 눌러 태그를 추가하세요'
+                            placeholder='엔터를 눌러 태그를 추가하세요. ⓧ을 눌러 태그를 삭제할 수 있습니다'
                             tabIndex={2}
                             onChange={e => setTagItem(e.target.value)}
                             value={tagItem}
@@ -116,7 +125,7 @@ const Delbtn = styled.button`
 
 const TagInput = styled.input`
   display: inline-flex;
-  min-width: 300px;
+  min-width: 600px;
   background: transparent;
   border: none;
   outline: none;
