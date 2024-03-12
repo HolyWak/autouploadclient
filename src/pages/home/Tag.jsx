@@ -79,7 +79,8 @@ const TagBox = styled.div`
   border-radius: 10px;
 
   &:focus-within {
-    border: 3px solid #C7DBFF;
+    border-color: 3px solid #C7DBFF; /* 포커스되었을 때의 테두리 색상 */
+    box-shadow: 0 0 5px #C7DBFF; /* 포커스되었을 때의 그림자 효과 */
     
   }
 `

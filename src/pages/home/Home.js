@@ -12,6 +12,7 @@ import Quality from './Quality';
 import BodyTextEdit from './BodyTextEdit';
 import Images from './Images';
 import Tag from './Tag';
+import Gender from './Gender';
 
 
 
@@ -33,8 +34,12 @@ function Home() {
                 <div className='component'>
                     <Price></Price>
                 </div>
-                <div className='component'>
+                {/*수량 삭제*/}
+                {/* <div className='component'>
                     <Quantity></Quantity>
+                </div> */}
+                <div className='component'>
+                    <Gender></Gender>
                 </div>
                 <div className='component'>
                     <Category></Category>
@@ -55,12 +60,13 @@ function Home() {
             </div>
             <div className='footer'>
                 <button className='footer-btn' onClick={() => {
+                    console.log("최종 데이터 확인");
                     console.log(data);
                     // axios.post('http://localhost:5000/write', data);
-                    let timer = setTimeout(()=>{ 
-                        alert('완료되었습니다');
-                    window.location.reload(); 
-                     }, 2000);
+                    // let timer = setTimeout(()=>{ 
+                    //     alert('완료되었습니다');
+                    // window.location.reload(); 
+                    //  }, 2000);
                     
                 }}> 게시물 등록 </button>
             </div>

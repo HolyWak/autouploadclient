@@ -7,8 +7,11 @@ function Quantity() {
 
     const [quantity, setQuantity] = useState(0)
     const saveQuantity = (event) => {
-        setQuantity(event.target.value);
-        console.log(event.target.value);
+        //혹시 문자열이 있다면 제거
+        const inputValue = event.target.value;
+        const filteredValue=inputValue.replace(/[^0-9]/g, "");
+        setQuantity(filteredValue);
+       
         //여기서 dispath이용해서 데이터 영구저장. 
     }
 
