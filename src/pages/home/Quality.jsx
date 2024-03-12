@@ -6,22 +6,22 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { Button, Container, Col, Row, Form } from 'react-bootstrap';
 import { stepButtonClasses } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { changeQuality } from '../../states/store';
 
 //TODO:중고상품을 선택했을때 개월수 입력할수있도록 추가
 function Quality() {
 
+    const dispatch = useDispatch()
+
     //여기의 첫 값을 default 버튼의 value와 똑같이 설정해두면 될 듯. 
-    let [quality, setQuality] = useState('used_default');
+    let [quality, setQuality] = useState('1');
 
-
-
-    useEffect(() => {
-        //여기적은 코드는 컴포넌트 로드 & 업데이트 마다 실행됨
-    });
 
     const saveQuality = (event) => {
-        setQuality(event.target.value);
-        console.log(event.target.value);
+        setQuality(event.target.value)
+        //useEffect를 쓰지 않으려면 dispatch(changeQuality(quality)) 가 아니라 아래처럼 하면 됨. 그럼에도 setQuality를 해주는 것은 ui 적인 변경을 위함.
+        dispatch(changeQuality(event.target.value))
 
     };
 
@@ -34,18 +34,18 @@ function Quality() {
                 <Col  >
                     <FormControl>
                         <RadioGroup
-                            defaultValue="used_default"
+                            defaultValue="1"
                             name="radio-buttons-group"
                             onChange={saveQuality}>
-                            <FormControlLabel value="new" control={<Radio />} label="새 상품(미개봉)" />
-                            <FormControlLabel value="used_default" control={<Radio />} label="중고 상품(사용감 없음.거의 새 것)" />
-                            {quality === 'used_default' && (<MonthInput /> )}
-                            <FormControlLabel value="used_1" control={<Radio />} label="중고 상품(사용감 적음)" />
-                            {quality === 'used_1' && (<MonthInput /> )}
-                            <FormControlLabel value="used_2" control={<Radio />} label="중고 상품(사용감 많음)" />
-                            {quality === 'used_2' && (<MonthInput /> )}
-                            <FormControlLabel value="used_3" control={<Radio />} label="중고 상품(고장/파손 상품)" />
-                            {quality === 'used_3' && (<MonthInput /> )}
+                            <FormControlLabel value="0" control={<Radio />} label="새 상품(미개봉)" />
+                            <FormControlLabel value="1" control={<Radio />} label="중고 상품(사용감 없음.거의 새 것)" />
+                            {quality === "1" && (<MonthInput /> )}
+                            <FormControlLabel value="2" control={<Radio />} label="중고 상품(사용감 적음)" />
+                            {quality === '2' && (<MonthInput /> )}
+                            <FormControlLabel value="3" control={<Radio />} label="중고 상품(사용감 많음)" />
+                            {quality === '3' && (<MonthInput /> )}
+                            <FormControlLabel value="4" control={<Radio />} label="중고 상품(고장/파손 상품)" />
+                            {quality === '4' && (<MonthInput /> )}
                         </RadioGroup>
                     </FormControl>
 
@@ -56,14 +56,11 @@ function Quality() {
 
 }
 
+//보여주기용. 서버에 보내진 않음. 추후 변경요청오면 작업
 function MonthInput() {
-
     let [usedMonth, setUsedMonth] = useState("빈티지");
-
     const saveUsedMonth = (event) => {
          setUsedMonth(event.target.value);
-        console.log(usedMonth);
-
     };
     return (
         <div>
