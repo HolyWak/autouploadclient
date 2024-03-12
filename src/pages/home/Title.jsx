@@ -2,15 +2,21 @@ import styled from 'styled-components'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeTitle } from '../../states/store';
 
 function Title() {
-
+    const dispatch = useDispatch()
     const [title, setTitle] = useState('')
+
+    useEffect(()=>{
+        dispatch(changeTitle(title))
+    },[title])
+
     const saveTitle = (event) => {
         setTitle(event.target.value);
         console.log(event.target.value);
-        //여기서 dispath이용해서 데이터 영구저장. 
     }
 
     return (
