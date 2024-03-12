@@ -16,7 +16,6 @@ function Title() {
 
     const saveTitle = (event) => {
         setTitle(event.target.value);
-        console.log(event.target.value);
     }
 
     return (
