@@ -26,41 +26,21 @@ function Home() {
 
     //서버로 데이터 보내는 함수
     const postDataToServer = () => {
-        // FormData 생성
         const formData = new FormData();
         formData.append('platform', data.platform);
         formData.append('title', data.title);
         formData.append('price', data.price);
-        // 나머지 필드들도 추가해야함
+        // 나머지 필드들도 추가
 
-        // img_list에 있는 이미지들을 formData에 추가
-        // data.img_list.forEach((imageUrl, index) => {
-        //   // 이미지 파일의 URL을 Blob 객체로 변환
-        //   fetch(imageUrl)
-        //     .then(res => res.blob())
-        //     .then(blob => {
-        //       // Blob 객체를 FormData에 추가
-        //       formData.append(`image${index + 1}`, blob, `image${index + 1}.jpg`);
-        //     })
-        //     .catch(error => console.error('Error fetching image:', error));
-        // });
-
-
-        // 각 이미지 파일들을 개별 FormData 객체에 추가
-        const imgFormData = new FormData();
-        data.img_list.forEach((imageUrl, index) => {
-            // 이미지 파일의 URL을 Blob 객체로 변환하여 추가
-            fetch(imageUrl)
+        // 각 이미지 파일들을 Promise 배열로 저장
+        const promises = data.img_list.map((imageUrl, index) => {
+            return fetch(imageUrl)
                 .then(res => res.blob())
                 .then(blob => {
-                    // Blob 객체를 FormData에 추가
-                    imgFormData.append(`image${index + 1}`, blob, `image${index + 1}.jpg`);
+                    formData.append(`image${index + 1}`, blob, `image${index + 1}.jpg`);
                 })
                 .catch(error => console.error('Error fetching image:', error));
         });
-
-        // imgFormData를 FormData에 추가
-        formData.append('img_list', imgFormData);
 
         // rep_img에 있는 이미지를 formData에 추가
         // fetch(data.rep_img)
@@ -70,26 +50,26 @@ function Home() {
         //     formData.append('rep_img', blob, 'rep_image.jpg');
         //   })
         //   .catch(error => console.error('Error fetching rep image:', error));
+        
 
-        // axios를 사용하여 서버에 데이터 전송
-        axios.post('http://localhost:5000/write', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data', // FormData를 사용하는 경우 반드시 Content-Type을 설정해야 합니다.
-            },
-        })
-            .then(response => {
-                // 성공 처리
-                console.log('Data sent successfully:', response.data);
+        // 모든 이미지 파일들을 받아온 후에 FormData를 서버로 전송
+        Promise.all(promises)
+            .then(() => {
+                axios.post('http://localhost:5000/write', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
+                    .then(response => {
+                        console.log('Data sent successfully:', response.data);
+                    })
+                    .catch(error => {
+                        console.error('Error sending data:', error);
+                    });
             })
             .catch(error => {
-                // 실패 처리
-                console.error('Error sending data:', error);
+                console.error('Error fetching image:', error);
             });
-
-        //formdata 의 json 값 출력. 파일은 확인 불가. 
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
 
     };
 
