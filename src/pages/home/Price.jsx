@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux"
 import { changePrice } from '../../states/store';
 
 function Price() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const [price, setPrice] = useState(0)
 
     useEffect(() => {

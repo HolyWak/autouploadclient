@@ -4,14 +4,17 @@ import Form from 'react-bootstrap/Form';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeContent } from '../../states/store';
 
 
 function BodyTextEdit() {
-    const [value, setValue] = useState('');
+    const dispatch = useDispatch()
+    const [body, setBody] = useState('')
 
-    const handleChange = (content, delta, source, editor) => {
-        setValue(content);
-        console.log(content);
+    const saveBody = (content, delta, source, editor) => {
+        setBody(content);
+        dispatch(changeContent(content))
     };
 
     const modules = {
@@ -31,9 +34,9 @@ function BodyTextEdit() {
                 </Form.Label>
                 <Col >
                     <ReactQuill
-                        value={value}
+                        value={body}
                         modules={modules}
-                        onChange={handleChange}
+                        onChange={saveBody}
                         formats={formats}></ReactQuill>
                 </Col>
             </Form.Group>

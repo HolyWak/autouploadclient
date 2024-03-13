@@ -6,7 +6,7 @@ let data = createSlice({
 
         platform: [], // 0 : 중고나라, 1 : 번개장터, 2 : 카페24
         title: "",
-        price: null,
+        price: "",
         gender: "", //FA : 여자어른, MA:남자어른, FK: 여자키즈,  MK: 남자키즈
         kids_age: null, // 0은 (0~2세), 1은 (3~6세), 2는 (7세~)   
         category: "", //카테고리 목록표에서 가장 세분화된 단계 선택 ex) 아우터/패딩이면 ‘패딩’
