@@ -13,6 +13,7 @@ import BodyTextEdit from './BodyTextEdit';
 import Images from './Images';
 import Tag from './Tag';
 import Gender from './Gender';
+import RepImg from './RepImg';
 
 
 
@@ -22,7 +23,6 @@ function Home() {
 
     //서버로 보낼 데이터 불러옴
     let data = useSelector((state) => { return state.data })
-    const dispatch = useDispatch()
 
     //서버로 데이터 보내는 함수
     const postDataToServer = () => {
@@ -30,7 +30,12 @@ function Home() {
         formData.append('platform', data.platform);
         formData.append('title', data.title);
         formData.append('price', data.price);
-        // 나머지 필드들도 추가
+        formData.append('gender', data.gender);
+        formData.append('kids_age', data.kids_age);
+        formData.append('category', data.category);
+        formData.append('quality', data.quality);
+        formData.append('content', data.content);
+        formData.append('tag_list', data.tag_list);
 
         // 각 이미지 파일들을 Promise 배열로 저장
         const promises = data.img_list.map((imageUrl, index) => {
@@ -42,18 +47,17 @@ function Home() {
                 .catch(error => console.error('Error fetching image:', error));
         });
 
-        // rep_img에 있는 이미지를 formData에 추가
-        // fetch(data.rep_img)
-        //   .then(res => res.blob())
-        //   .then(blob => {
-        //     // Blob 객체를 FormData에 추가
-        //     formData.append('rep_img', blob, 'rep_image.jpg');
-        //   })
-        //   .catch(error => console.error('Error fetching rep image:', error));
-        
+        // rep_img에 있는 이미지를 Promise로 받아와서 FormData에 추가
+        const repImgPromise = fetch(data.rep_img)
+            .then(res => res.blob())
+            .then(blob => {
+                // Blob 객체를 FormData에 추가
+                formData.append('rep_img', blob, 'rep_image.jpg');
+            })
+            .catch(error => console.error('Error fetching rep image:', error));
 
         // 모든 이미지 파일들을 받아온 후에 FormData를 서버로 전송
-        Promise.all(promises)
+        Promise.all([...promises, repImgPromise])
             .then(() => {
                 axios.post('http://localhost:5000/write', formData, {
                     headers: {
@@ -72,6 +76,13 @@ function Home() {
             });
 
     };
+
+
+    //데이터 확인용 함수. 
+    const checkreduxdata = () => {
+        console.log(data)
+    }
+
 
     return (
         <div >
@@ -101,6 +112,9 @@ function Home() {
                     <BodyTextEdit></BodyTextEdit>
                 </div>
                 <div className='component'>
+                    <RepImg></RepImg>
+                </div>
+                <div className='component'>
                     <Images></Images>
                 </div>
                 <div className='component'>
@@ -109,7 +123,7 @@ function Home() {
 
             </div>
             <div className='footer'>
-                <button className='footer-btn' onClick={postDataToServer}> 게시물 등록 </button>
+                <button className='footer-btn' onClick={checkreduxdata}> 게시물 등록 </button>
             </div>
 
 
@@ -117,5 +131,7 @@ function Home() {
         </div>
     )
 }
+
+
 
 export default Home;
