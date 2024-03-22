@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
 
-      <Navbar className="bg-body-tertiary">
+<Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/">
             <img
@@ -18,12 +18,8 @@ function App() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            자동게시물업로드
+            통합 게시물 업로드
           </Navbar.Brand>
-          <Navbar.Collapse className="justify-content-end">
-            <Button>계정 관리</Button>
-          </Navbar.Collapse>
-
         </Container>
       </Navbar>
       <Routes>

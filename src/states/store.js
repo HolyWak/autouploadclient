@@ -3,7 +3,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 let data = createSlice({
     name: 'data',
     initialState: {
-
+        account:"",
         platform: [], // 0 : 중고나라, 1 : 번개장터, 2 : 카페24
         title: "",
         price: "",
@@ -17,6 +17,9 @@ let data = createSlice({
         tag_list: [],
     },
     reducers: {
+        changeAccount(state,action){
+            state.account = action.payload
+        },
         changePlatform(state, action) {
             state.platform = action.payload
         },
@@ -62,6 +65,6 @@ export default configureStore({
     }
 })
 
-export let { changePlatform, changeTitle, changePrice, changeGender,
+export let { changeAccount,changePlatform, changeTitle, changePrice, changeGender,
     changeKidsAge, changeCategory, changeQuality,
     changeContent, changeRepImg, changeImgList, changeTagList } = data.actions 

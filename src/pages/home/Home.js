@@ -14,6 +14,7 @@ import Images from './Images';
 import Tag from './Tag';
 import Gender from './Gender';
 import RepImg from './RepImg';
+import AccountInfo from './Account';
 
 
 
@@ -87,8 +88,12 @@ function Home() {
     return (
         <div >
             <div className='body'>
-                {/*Platform의 경우 자체 css 파일이 있기 때문에 여기서 div로 감싸주지 않음 */}
-                <Platform></Platform>
+                <div className='component'>
+                    <AccountInfo></AccountInfo>
+                </div>
+                <div className='component'>
+                    <Platform></Platform>
+                </div>
                 <div className='component'>
                     <Title></Title>
                 </div>
