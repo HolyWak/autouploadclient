@@ -39,7 +39,6 @@ function RepImg() {
         </Form.Label>
         <Col >
           <Container>
-
             {/* 파일 선택 */}
             <FileInputLabel htmlFor="fileInput">
               <FileInputIcon /> {/* 이미지 아이콘 */}
@@ -47,10 +46,9 @@ function RepImg() {
               <FileInput id="fileInput" type="file" onChange={handleFileChange} />
             </FileInputLabel>
             {/* 이미지 미리보기 */}
-            <ImagePreviewContainer onClick={handlePreviewClick}>
-              {previewImage && <ImagePreview src={previewImage} alt="Preview" />}
-            </ImagePreviewContainer>
+            {previewImage && <ImagePreviewContainer onClick={handlePreviewClick}><ImagePreview src={previewImage} alt="이미지 파일이 아닙니다" /></ImagePreviewContainer>}
           </Container>
+          <TextLabel>* 미리보기 이미지 클릭시 원본 이미지 확인가능</TextLabel>
 
         </Col>
       </Form.Group>
@@ -62,23 +60,25 @@ function RepImg() {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  min-width: 500px;
 `;
 
 const ImagePreviewContainer = styled.div`
   width: 200px;
   height: 200px;
   border: 1px solid #ccc;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const ImagePreview = styled.img`
-width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    /* width: 100%;
+  height: 100%;
+  object-fit: cover; */
 `;
 
 const FileInput = styled.input`
@@ -89,6 +89,7 @@ const FileInputLabel = styled.label`
     position: relative;
     cursor: pointer;
     padding: 10px 15px;
+    margin-right: 10px;
     width: 200px;
     height: 200px;
     background-color: #F6F5F5;
@@ -104,6 +105,11 @@ const FileInputLabel = styled.label`
 const FileInputIcon = styled(FaCamera)`
     font-size: 30px;
     margin-bottom: 10px;
+`;
+
+const TextLabel = styled.label`
+    font-size: 12px;
+    color: grey;
 `;
 
 
