@@ -39,13 +39,13 @@ function Quality() {
                             onChange={saveQuality}>
                             <FormControlLabel value="0" control={<Radio />} label="새 상품(미개봉)" />
                             <FormControlLabel value="1" control={<Radio />} label="중고 상품(사용감 없음.거의 새 것)" />
-                            {quality === "1" && (<MonthInput /> )}
+                            {/* {quality === "1" && (<MonthInput /> )} */}
                             <FormControlLabel value="2" control={<Radio />} label="중고 상품(사용감 적음)" />
-                            {quality === '2' && (<MonthInput /> )}
+                            {/* {quality === '2' && (<MonthInput /> )} */}
                             <FormControlLabel value="3" control={<Radio />} label="중고 상품(사용감 많음)" />
-                            {quality === '3' && (<MonthInput /> )}
+                            {/* {quality === '3' && (<MonthInput /> )} */}
                             <FormControlLabel value="4" control={<Radio />} label="중고 상품(고장/파손 상품)" />
-                            {quality === '4' && (<MonthInput /> )}
+                            {/* {quality === '4' && (<MonthInput /> )} */}
                         </RadioGroup>
                     </FormControl>
 
