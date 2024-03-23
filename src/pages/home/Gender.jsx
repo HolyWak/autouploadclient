@@ -73,7 +73,7 @@ function AgeCheck() {
                         row
                         name="radio-buttons-kidage-group"
                         onChange={saveKidAge}>
-                        <FormControlLabel value="0" control={<Radio />} label="베이베(0~2세)" />
+                        <FormControlLabel value="0" control={<Radio />} label="베이비(0~2세)" />
                         <FormControlLabel value="1" control={<Radio />} label="아동(3~6세)" />
                         <FormControlLabel value="2" control={<Radio />} label="쥬니어(7세 이상)" />
 
