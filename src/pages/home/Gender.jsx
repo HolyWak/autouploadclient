@@ -65,7 +65,7 @@ function AgeCheck() {
     return (
         <Form.Group as={Row} className="mb-3">
             <Form.Label column sm="2">
-                키즈 연령대
+                키즈 연령
             </Form.Label>
             <Col>
                 <FormControl>

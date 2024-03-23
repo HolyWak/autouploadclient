@@ -1,4 +1,3 @@
-import Junggo from './Junggo';
 import { useState } from 'react';
 import './Home.css'
 import { useDispatch, useSelector } from "react-redux"
@@ -27,7 +26,35 @@ function Home() {
 
     //서버로 데이터 보내는 함수
     const postDataToServer = () => {
+
+        // 필수 입력 필드 체크
+        const missingFields = [];
+        if (!data.account_info) missingFields.push('계정선택');
+        if (!data.platform) missingFields.push('플랫폼');
+        if (!data.title) missingFields.push('상품명');
+        if (!data.price) missingFields.push('가격');
+        if (!data.gender) missingFields.push('성별');
+        if (!data.category) missingFields.push('카테고리');
+        if (!data.quality) missingFields.push('상품상태');
+        if (!data.content) missingFields.push('상품설명');
+        if (!data.rep_img) missingFields.push('대표 이미지');
+        //추가 이미지는 필수 값이 아님
+        // if (!data.img_list) missingFields.push('추가 이미지');
+        if (!data.tag_list) missingFields.push('태그');
+
+        // gender가 'FK' 또는 'MK'일 때 kids_age가 비어있는지 확인
+        if ((data.gender === 'FK' || data.gender === 'MK') && !data.kids_age) {
+            missingFields.push('키즈 연령');
+        }
+
+        if (missingFields.length > 0) {
+            alert(`${missingFields.join(', ')}을(를) 작성해주세요.`);
+            return; 
+        }
+
+
         const formData = new FormData();
+        formData.append('account_info', data.AccountInfo);
         formData.append('platform', data.platform);
         formData.append('title', data.title);
         formData.append('price', data.price);
@@ -128,7 +155,7 @@ function Home() {
 
             </div>
             <div className='footer'>
-                <button className='footer-btn' onClick={checkreduxdata}> 게시물 등록 </button>
+                <button className='footer-btn' onClick={postDataToServer}> 게시물 등록 </button>
             </div>
 
 

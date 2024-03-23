@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux"
-import {changeAccount } from '../../states/store';
+import {changeAccountInfo } from '../../states/store';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
@@ -15,7 +15,7 @@ function AccountInfo() {
     // 선택된 플랫폼이 변경될 때마다 Redux에 저장
     useEffect(() => {
         if (account !== null) {
-            dispatch(changeAccount(account));
+            dispatch(changeAccountInfo(account));
         }
     }, [account, dispatch]);
 
