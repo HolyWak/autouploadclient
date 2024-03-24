@@ -8,7 +8,7 @@ let data = createSlice({
         title: "",
         price: "",
         gender: "", //FA : 여자어른, MA:남자어른, FK: 여자키즈,  MK: 남자키즈
-        kids_age: null, // 0은 (0~2세), 1은 (3~6세), 2는 (7세~)   
+        kids_age: null, // 0은 베이비, 1은 아동, 2는 쥬니어   
         category: "", //카테고리 목록표에서 가장 세분화된 단계 선택 ex) 아우터/패딩이면 ‘패딩’
         quality: 1, //새상품 : 0  사용감없음:1(default) 사용감적음:2 사용감 많음:3  고장파손:4
         content: "", //10자 이상

@@ -14,10 +14,8 @@ function AccountInfo() {
 
     // 선택된 플랫폼이 변경될 때마다 Redux에 저장
     useEffect(() => {
-        if (account !== null) {
             dispatch(changeAccountInfo(account));
-        }
-    }, [account, dispatch]);
+    }, [account]);
 
     // 버튼 클릭 핸들러
     const handlePlatformSelect = (selectedAccount) => {

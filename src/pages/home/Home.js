@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import './Home.css'
-import { useDispatch, useSelector } from "react-redux"
+import {useSelector } from "react-redux"
 import axios from 'axios'
 import Title from './Title';
 import Platform from './Platform';
@@ -49,12 +48,12 @@ function Home() {
 
         if (missingFields.length > 0) {
             alert(`${missingFields.join(', ')}을(를) 작성해주세요.`);
-            return; 
+            return;
         }
 
 
         const formData = new FormData();
-        formData.append('account_info', data.AccountInfo);
+        formData.append('account_info', data.account_info);
         formData.append('platform', data.platform);
         formData.append('title', data.title);
         formData.append('price', data.price);
@@ -103,10 +102,18 @@ function Home() {
                 console.error('Error fetching image:', error);
             });
 
+        //formData확인
+        // Promise.all([...promises, repImgPromise]).then(() => {
+        //     for (const pair of formData.entries()) {
+        //         console.log(pair[0], pair[1]);
+        //     }
+        // })
+
+
     };
 
 
-    //데이터 확인용 함수. 
+    //redux데이터 확인용 함수. 
     const checkreduxdata = () => {
         console.log(data)
     }

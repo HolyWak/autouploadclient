@@ -15,23 +15,22 @@ function Tag() {
     const dispatch = useDispatch()
 
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(changeTagList(tagList))
-    },[tagList])
+    }, [tagList])
 
     const onKeyPress = e => {
         if (e.target.value.length !== 0 && e.key === 'Enter') {
             if (e.nativeEvent.isComposing) return
             submitTagItem()
-        }else if (e.key === 'Backspace' && !e.target.value && tagList.length > 0){
-            setTagList(tagList.slice(0,tagList.length-1))
+        } else if (e.key === 'Backspace' && !e.target.value && tagList.length > 0) {
+            setTagList(tagList.slice(0, tagList.length - 1))
         }
     }
 
     const submitTagItem = () => {
         let updatedTagList = [...tagList]
         updatedTagList.push(tagItem)
-        console.log(updatedTagList)
         setTagList(updatedTagList)
         setTagItem('')
     }
