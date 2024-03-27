@@ -1,5 +1,5 @@
 import './Home.css'
-import {useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import axios from 'axios'
 import Title from './Title';
 import Platform from './Platform';
@@ -13,12 +13,29 @@ import Tag from './Tag';
 import Gender from './Gender';
 import RepImg from './RepImg';
 import AccountInfo from './Account';
+import React, { useEffect } from 'react';
 
 
 
 
 
 function Home() {
+
+    // 구글 번역 응용 프로그램이 활성화되어 있는지 확인하는 함수
+    function isTranslationAppEnabled() {
+        return window.chrome && window.chrome.translate && window.chrome.translate.onTranslateEnabled();
+    }
+    // 구글 번역을 비활성화하는 함수
+    function disableTranslation() {
+        if (isTranslationAppEnabled()) {
+            document.documentElement.classList.add('notranslate');
+            window.chrome.translate.setTranslateEnabled(false);
+        }
+    }
+    // 페이지가 로드될 때 번역을 비활성화
+    useEffect(() => {
+        disableTranslation();
+    }, []);
 
     //서버로 보낼 데이터 불러옴
     let data = useSelector((state) => { return state.data })
