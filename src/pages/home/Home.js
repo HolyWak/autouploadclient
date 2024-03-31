@@ -52,7 +52,8 @@ function Home() {
         if (!data.gender) missingFields.push('성별');
         if (!data.category) missingFields.push('카테고리');
         if (!data.quality) missingFields.push('상품상태');
-        if (!data.content) missingFields.push('상품설명');
+        // 상품설명 필수 값 아님
+        // if (!data.content) missingFields.push('상품설명');
         if (!data.rep_img) missingFields.push('대표 이미지');
         //추가 이미지는 필수 값이 아님
         // if (!data.img_list) missingFields.push('추가 이미지');
