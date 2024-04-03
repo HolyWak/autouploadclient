@@ -5,7 +5,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { useDispatch } from "react-redux"
 import { changeGender, changeKidsAge } from '../../states/store';
-
 import { Col, Row, Form } from 'react-bootstrap';
 
 
@@ -44,7 +43,6 @@ function Gender() {
             </Form.Group>
             {gender === 'FK' && (<AgeCheck />)}
             {gender === 'MK' && (<AgeCheck />)}
-
         </div>
     )
 }
@@ -76,7 +74,6 @@ function AgeCheck() {
                         <FormControlLabel value="0" control={<Radio />} label="베이비(0~2세)" />
                         <FormControlLabel value="1" control={<Radio />} label="아동(3~6세)" />
                         <FormControlLabel value="2" control={<Radio />} label="쥬니어(7세 이상)" />
-
                     </RadioGroup>
                 </FormControl></Col>
         </Form.Group>

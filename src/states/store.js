@@ -9,9 +9,14 @@ let data = createSlice({
         price: "",
         gender: "", //FA : 여자어른, MA:남자어른, FK: 여자키즈,  MK: 남자키즈
         kids_age: null, // 0은 베이비, 1은 아동, 2는 쥬니어   
-        category: "", //카테고리 목록표에서 가장 세분화된 단계 선택 ex) 아우터/패딩이면 ‘패딩’
+        category: "", //카테고리 목록표 id
+        chest_size: null,
+        total_length: null,
+        waist_size : null,
+        recommended_age : null,
+        shoes_size :null,
         quality: 1, //새상품 : 0  사용감없음:1(default) 사용감적음:2 사용감 많음:3  고장파손:4
-        content: "", //10자 이상
+        content: "", 
         rep_img: "", // 대표이미지
         img_list: [], // 대표이미지를 제와한 나머지 이미지
         tag_list: [],
@@ -37,6 +42,21 @@ let data = createSlice({
         },
         changeCategory(state, action) {
             state.category = action.payload
+        },
+        changeChestSize(state, action) {
+            state.chest_size = action.payload
+        },
+        changeTotalLength(state, action) {
+            state.total_length = action.payload
+        },
+        changeWaistSize(state, action) {
+            state.waist_size = action.payload
+        },
+        changeRecommendedAge(state, action) {
+            state.recommended_age= action.payload
+        },
+        changeShoesSize(state, action) {
+            state.shoes_size = action.payload
         },
         changeQuality(state, action) {
             state.quality = action.payload
@@ -66,5 +86,5 @@ export default configureStore({
 })
 
 export let { changeAccountInfo,changePlatform, changeTitle, changePrice, changeGender,
-    changeKidsAge, changeCategory, changeQuality,
+    changeKidsAge, changeCategory,changeChestSize,changeTotalLength,changeWaistSize,changeRecommendedAge,changeShoesSize, changeQuality,
     changeContent, changeRepImg, changeImgList, changeTagList } = data.actions 

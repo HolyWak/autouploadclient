@@ -58,7 +58,6 @@ function Home() {
         //추가 이미지는 필수 값이 아님
         // if (!data.img_list) missingFields.push('추가 이미지');
         if (!data.tag_list) missingFields.push('태그');
-
         // gender가 'FK' 또는 'MK'일 때 kids_age가 비어있는지 확인
         if ((data.gender === 'FK' || data.gender === 'MK') && !data.kids_age) {
             missingFields.push('키즈 연령');
@@ -78,6 +77,11 @@ function Home() {
         formData.append('gender', data.gender);
         formData.append('kids_age', data.kids_age);
         formData.append('category', data.category);
+        formData.append('chest_size', data.chest_size);
+        formData.append('total_length', data.total_length);
+        formData.append('waist_size', data.waist_size);
+        formData.append('recommended_age', data.recommended_age);
+        formData.append('shoes_size',data.shoes_size);
         formData.append('quality', data.quality);
         formData.append('content', data.content);
         formData.append('tag_list', data.tag_list);
@@ -120,7 +124,7 @@ function Home() {
                 console.error('Error fetching image:', error);
             });
 
-        //formData확인
+        // formData확인
         // Promise.all([...promises, repImgPromise]).then(() => {
         //     for (const pair of formData.entries()) {
         //         console.log(pair[0], pair[1]);

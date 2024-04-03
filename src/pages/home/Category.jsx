@@ -4,7 +4,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import { CATEGORIES } from './CATEGORYLIST';
 import { HiOutlineChevronRight, HiOutlineChevronDown } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
-import { changeCategory } from '../../states/store';
+import { changeCategory, changeChestSize, changeRecommendedAge, changeShoesSize, changeTotalLength, changeWaistSize } from '../../states/store';
 
 const animation = {
     mount: keyframes`
@@ -20,10 +20,13 @@ const animation = {
 const Category = () => {
     const dispatch = useDispatch();
 
+    //sub카테고리 보여주는 용도의 메인 카테고리 저장 state
     const [mainCategory, setMainCategory] = useState(1);
     const [categoryAnimation, setCategoryAnimation] = useState(true);
     const [showCategory, setShowCategory] = useState(false);
 
+    //추가 데이터 입력받을 용도의 메인 카테고리 저장 state
+    const [selectedMainCateId, setSelectedMainCateId] = useState(null);
     const [selectedSubCateName, setSelectedSubCateName] = useState(null);
     const categoryRef = useRef(null);
     const categoryButtonRef = useRef(null);
@@ -54,11 +57,20 @@ const Category = () => {
         setShowCategory(!showCategory);
     };
 
-    const selectSubCategory = (id, name) => {
-        dispatch(changeCategory(id));
+    const selectSubCategory = (subId, name) => {
+        dispatch(changeCategory(subId));
         setSelectedSubCateName(name);
         setShowCategory(false);
     };
+
+    const selectMainCategory = (subId) => {
+        //ParentCategory 전체를 찾아냄
+        const parentCategory = CATEGORIES.find(category =>
+            category.subcategories.some(subCategory => subCategory.subCategoryId === subId)
+        )
+        //그 중에서 id만 뽑아서 state에 저장
+        setSelectedMainCateId(parentCategory.id)
+    }
 
     return (
         <div style={{ position: 'relative' }}>
@@ -73,6 +85,7 @@ const Category = () => {
                             <span>&nbsp;</span>
                             <HiOutlineChevronDown />
                         </CategoryButton>
+
                     </div>
                     {showCategory && (
                         <S.CategoryBox
@@ -102,7 +115,10 @@ const Category = () => {
                                         <S.SubCategory
                                             key={sub_cate.subCategoryId}
                                             isSelected={selectedSubCateName === sub_cate.name}
-                                            onClick={() => selectSubCategory(sub_cate.subCategoryId, sub_cate.name)}
+                                            onClick={() => {
+                                                selectSubCategory(sub_cate.subCategoryId, sub_cate.name)
+                                                selectMainCategory(sub_cate.subCategoryId)
+                                            }}
                                         >
                                             {sub_cate.name}
                                         </S.SubCategory>
@@ -112,10 +128,109 @@ const Category = () => {
                     )}
                 </Col>
             </Form.Group>
+            {selectedMainCateId === 1 && (<OuterTopInput />)}
+            {selectedMainCateId === 2 && (<OuterTopInput />)}
+            {selectedMainCateId === 3 && (<BottomInput />)}
+            {selectedMainCateId === 4 && (<ShoesInput />)}
+            {selectedMainCateId === 5 && (<KidsInput />)}
         </div>
     );
 };
 
+// 아우터/상의 추가 입력 컴포넌트
+function OuterTopInput() {
+    const dispatch = useDispatch();
+    const saveChestSize = (event) => {
+        dispatch(changeChestSize(event.target.value));
+    };
+    const saveTotalLength = (event) => {
+        dispatch(changeTotalLength(event.target.value));
+    };
+    return (
+        <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+                추가 정보
+            </Form.Label>
+            <Col>
+                <SubLabel>가슴 반품</SubLabel>
+                <InputBox onChange={saveChestSize}></InputBox>
+                <TailLabel>cm</TailLabel>
+                <SubLabel>총장</SubLabel>
+                <InputBox onChange={saveTotalLength}></InputBox>
+                <TailLabel>cm</TailLabel>
+            </Col>
+        </Form.Group>
+    )
+}
+
+// 하의 추가 입력 컴포넌트
+function BottomInput() {
+    const dispatch = useDispatch();
+    const saveWaistSize = (event) => {
+        dispatch(changeWaistSize(event.target.value));
+    };
+    const saveTotalLength = (event) => {
+        dispatch(changeTotalLength(event.target.value));
+    };
+    return (
+        <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+                추가 정보
+            </Form.Label>
+            <Col>
+                <SubLabel>허리 단면</SubLabel>
+                <InputBox onChange={saveWaistSize}></InputBox>
+                <TailLabel>cm</TailLabel>
+                <SubLabel>총장</SubLabel>
+                <InputBox onChange={saveTotalLength}></InputBox>
+                <TailLabel>cm</TailLabel>
+            </Col>
+        </Form.Group>
+    )
+}
+
+// 키즈 추가 입력 컴포넌트
+function KidsInput() {
+    const dispatch = useDispatch();
+    const saveRecommendAge = (event) => {
+        dispatch(changeRecommendedAge(event.target.value));
+    };
+    return (
+        <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+                추가 정보
+            </Form.Label>
+            <Col>
+                <SubLabel>추천 나이</SubLabel>
+                <InputBox onChange={saveRecommendAge}></InputBox>
+                <TailLabel>세</TailLabel>
+            </Col>
+        </Form.Group>
+    )
+}
+
+// 신발 추가 입력 컴포넌트
+function ShoesInput() {
+    const dispatch = useDispatch();
+    const saveShoesSize = (event) => {
+        dispatch(changeShoesSize(event.target.value));
+    };
+    return (
+        <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+                추가 정보
+            </Form.Label>
+            <Col>
+                <SubLabel>신발 사이즈</SubLabel>
+                <InputBox onChange={saveShoesSize}></InputBox>
+                <TailLabel>mm</TailLabel>
+            </Col>
+        </Form.Group>
+    )
+}
+
+
+//스타일
 const flex = (justify = 'center', align = 'center', direction = 'row') => `
   display: flex;
   justify-content: ${justify};
@@ -204,5 +319,33 @@ const S = {
     }
 `,
 };
+
+const SubLabel = styled.label`
+    padding-left: 30px;
+    font-size: 85%;
+`
+
+const InputBox = styled.input`
+  display: inline-flex;
+  text-align: end;
+  font-size: 85%;
+  min-height: 30px;
+  width: 80px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 0 10px;
+  border: 1px solid #DEE2E6;
+  border-radius: 5px;
+
+  &:focus {
+    outline: none;
+    border-color: 3px solid #C7DBFF; /* 포커스되었을 때의 테두리 색상 */
+    box-shadow: 0 0 5px #C7DBFF; /* 포커스되었을 때의 그림자 효과 */
+    
+  }
+`
+const TailLabel = styled.label`
+    font-size: 85%;
+`
 
 export default Category;
