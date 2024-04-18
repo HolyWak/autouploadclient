@@ -43,8 +43,8 @@ function Home() {
     let data = useSelector((state) => { return state.data })
 
     //서버로 데이터 보내는 함수
-    const postDataToServer = () => {    
-        
+    const postDataToServer = () => {
+
         // 필수 입력 필드 체크
         const missingFields = [];
         if (!data.account_info) missingFields.push('계정선택');
@@ -83,7 +83,7 @@ function Home() {
         formData.append('total_length', data.total_length);
         formData.append('waist_size', data.waist_size);
         formData.append('recommended_age', data.recommended_age);
-        formData.append('shoes_size',data.shoes_size);
+        formData.append('shoes_size', data.shoes_size);
         formData.append('quality', data.quality);
         formData.append('content', data.content);
         formData.append('tag_list', data.tag_list);
@@ -117,17 +117,16 @@ function Home() {
                 })
                     .then(response => {
                         console.log('Data sent successfully:', response.data);
-                        setIsLoading(false); // 로딩 상태 종료
-                        window.location.reload();
                     })
                     .catch(error => {
                         console.error('Error sending data:', error);
-                        setIsLoading(false); // 로딩 상태 종료
                     });
+                setIsLoading(false); // 로딩 상태 종료
+                window.location.reload();
             })
             .catch(error => {
+                alert(`fetching image error`);
                 console.error('Error fetching image:', error);
-                setIsLoading(false); // 로딩 상태 종료
             });
 
         // formData확인
@@ -149,7 +148,7 @@ function Home() {
 
     return (
         <div >
-            {isLoading&&<Loading></Loading>}
+            {isLoading && <Loading></Loading>}
             <div className='body'>
                 <div className='component'>
                     <AccountInfo></AccountInfo>
@@ -188,20 +187,12 @@ function Home() {
                 <div className='component'>
                     <Tag></Tag>
                 </div>
-
             </div>
             <div className='footer'>
-                <button className='footer-btn' onClick={()=>{ 
-                    postDataToServer()
-                    }}> 게시물 등록 </button>
+                <button className='footer-btn' disabled={isLoading} onClick={() => postDataToServer()}> 게시물 등록 </button>
             </div>
-
-
-
         </div>
     )
 }
-
-
 
 export default Home;
