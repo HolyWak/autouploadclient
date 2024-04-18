@@ -189,7 +189,7 @@ function Home() {
                 </div>
             </div>
             <div className='footer'>
-                <button className='footer-btn' disabled={isLoading} onClick={() => postDataToServer()}> 게시물 등록 </button>
+                <button className='footer-btn' onClick={() => postDataToServer()}> 게시물 등록 </button>
             </div>
         </div>
     )
