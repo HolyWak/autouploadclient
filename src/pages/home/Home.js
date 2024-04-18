@@ -117,16 +117,22 @@ function Home() {
                 })
                     .then(response => {
                         console.log('Data sent successfully:', response.data);
+                        setIsLoading(false); // 로딩 상태 종료
+                        alert(`응답 200. 성공`);
+                        window.location.reload();
                     })
                     .catch(error => {
                         console.error('Error sending data:', error);
+                        setIsLoading(false); // 로딩 상태 종료
+                        alert(`응답 200 아님. 실패`);
+                        window.location.reload();
                     });
-                setIsLoading(false); // 로딩 상태 종료
-                window.location.reload();
             })
             .catch(error => {
-                alert(`fetching image error`);
                 console.error('Error fetching image:', error);
+                setIsLoading(false); // 로딩 상태 종료
+                alert(`fetching image error`);
+                window.location.reload();
             });
 
         // formData확인
@@ -189,7 +195,7 @@ function Home() {
                 </div>
             </div>
             <div className='footer'>
-                <button className='footer-btn' onClick={() => postDataToServer()}> 게시물 등록 </button>
+                <button className='footer-btn' disabled={isLoading} onClick={() => postDataToServer()}> 게시물 등록 </button>
             </div>
         </div>
     )
