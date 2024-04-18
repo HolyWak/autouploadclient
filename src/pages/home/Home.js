@@ -13,13 +13,15 @@ import Tag from './Tag';
 import Gender from './Gender';
 import RepImg from './RepImg';
 import AccountInfo from './Account';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Loading from '../../comoponents/Loading';
 
 
 
 
 
 function Home() {
+    const [isLoading, setIsLoading] = useState(false);
 
     // 구글 번역 응용 프로그램이 활성화되어 있는지 확인하는 함수
     function isTranslationAppEnabled() {
@@ -41,8 +43,8 @@ function Home() {
     let data = useSelector((state) => { return state.data })
 
     //서버로 데이터 보내는 함수
-    const postDataToServer = () => {
-
+    const postDataToServer = () => {    
+        
         // 필수 입력 필드 체크
         const missingFields = [];
         if (!data.account_info) missingFields.push('계정선택');
@@ -57,7 +59,7 @@ function Home() {
         if (!data.rep_img) missingFields.push('대표 이미지');
         //추가 이미지는 필수 값이 아님
         // if (!data.img_list) missingFields.push('추가 이미지');
-        if (!data.tag_list) missingFields.push('태그');
+        // if (!data.tag_list) missingFields.push('태그');
         // gender가 'FK' 또는 'MK'일 때 kids_age가 비어있는지 확인
         if ((data.gender === 'FK' || data.gender === 'MK') && !data.kids_age) {
             missingFields.push('키즈 연령');
@@ -68,7 +70,7 @@ function Home() {
             return;
         }
 
-
+        setIsLoading(true);
         const formData = new FormData();
         formData.append('account_info', data.account_info);
         formData.append('platform', data.platform);
@@ -115,13 +117,17 @@ function Home() {
                 })
                     .then(response => {
                         console.log('Data sent successfully:', response.data);
+                        setIsLoading(false); // 로딩 상태 종료
+                        window.location.reload();
                     })
                     .catch(error => {
                         console.error('Error sending data:', error);
+                        setIsLoading(false); // 로딩 상태 종료
                     });
             })
             .catch(error => {
                 console.error('Error fetching image:', error);
+                setIsLoading(false); // 로딩 상태 종료
             });
 
         // formData확인
@@ -143,6 +149,7 @@ function Home() {
 
     return (
         <div >
+            {isLoading&&<Loading></Loading>}
             <div className='body'>
                 <div className='component'>
                     <AccountInfo></AccountInfo>
@@ -186,7 +193,6 @@ function Home() {
             <div className='footer'>
                 <button className='footer-btn' onClick={()=>{ 
                     postDataToServer()
-                    window.location.reload()
                     }}> 게시물 등록 </button>
             </div>
 
