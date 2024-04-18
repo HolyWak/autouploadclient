@@ -184,7 +184,10 @@ function Home() {
 
             </div>
             <div className='footer'>
-                <button className='footer-btn' onClick={postDataToServer}> 게시물 등록 </button>
+                <button className='footer-btn' onClick={()=>{ 
+                    postDataToServer()
+                    window.location.reload()
+                    }}> 게시물 등록 </button>
             </div>
 
 
