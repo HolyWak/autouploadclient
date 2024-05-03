@@ -13,6 +13,8 @@ let data = createSlice({
         chest_size: null,
         total_length: null,
         waist_size : null,
+        arm_size : null, //팔 사이즈
+        shoulder_size : null, //어깨 사이즈 
         recommended_age : null,
         shoes_size :null,
         quality: 1, //새상품 : 0  사용감없음:1(default) 사용감적음:2 사용감 많음:3  고장파손:4
@@ -52,6 +54,12 @@ let data = createSlice({
         changeWaistSize(state, action) {
             state.waist_size = action.payload
         },
+        changeArmSize(state, action) {
+            state.arm_size = action.payload
+        },
+        changeShoulderSize(state, action) {
+            state.shoulder_size = action.payload
+        },
         changeRecommendedAge(state, action) {
             state.recommended_age= action.payload
         },
@@ -86,5 +94,5 @@ export default configureStore({
 })
 
 export let { changeAccountInfo,changePlatform, changeTitle, changePrice, changeGender,
-    changeKidsAge, changeCategory,changeChestSize,changeTotalLength,changeWaistSize,changeRecommendedAge,changeShoesSize, changeQuality,
+    changeKidsAge, changeCategory,changeChestSize,changeTotalLength,changeWaistSize, changeArmSize, changeShoulderSize,changeRecommendedAge,changeShoesSize, changeQuality,
     changeContent, changeRepImg, changeImgList, changeTagList } = data.actions 

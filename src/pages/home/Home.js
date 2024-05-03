@@ -80,6 +80,8 @@ function Home() {
         formData.append('chest_size', data.chest_size);
         formData.append('total_length', data.total_length);
         formData.append('waist_size', data.waist_size);
+        formData.append('arm_size', data.arm_size);
+        formData.append('shoulder_size', data.shoulder_size);
         formData.append('recommended_age', data.recommended_age);
         formData.append('shoes_size',data.shoes_size);
         formData.append('quality', data.quality);

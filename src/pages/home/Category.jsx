@@ -4,7 +4,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import { CATEGORIES } from './CATEGORYLIST';
 import { HiOutlineChevronRight, HiOutlineChevronDown } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
-import { changeCategory, changeChestSize, changeRecommendedAge, changeShoesSize, changeTotalLength, changeWaistSize } from '../../states/store';
+import { changeCategory, changeChestSize, changeRecommendedAge, changeShoesSize, changeArmSize,changeShoulderSize, changeTotalLength, changeWaistSize } from '../../states/store';
 
 const animation = {
     mount: keyframes`
@@ -146,6 +146,12 @@ function OuterTopInput() {
     const saveTotalLength = (event) => {
         dispatch(changeTotalLength(event.target.value));
     };
+    const saveArmSize = (event) => {
+        dispatch(changeArmSize(event.target.value));
+    };
+    const saveShoulderSize = (event) => {
+        dispatch(changeShoulderSize(event.target.value));
+    };
     return (
         <Form.Group as={Row} className="mb-3">
             <Form.Label column sm="2">
@@ -157,6 +163,12 @@ function OuterTopInput() {
                 <TailLabel>cm</TailLabel>
                 <SubLabel>총장</SubLabel>
                 <InputBox onChange={saveTotalLength}></InputBox>
+                <TailLabel>cm</TailLabel>
+                <SubLabel>어깨</SubLabel>
+                <InputBox onChange={saveArmSize}></InputBox>
+                <TailLabel>cm</TailLabel>
+                <SubLabel>팔</SubLabel>
+                <InputBox onChange={saveShoulderSize}></InputBox>
                 <TailLabel>cm</TailLabel>
             </Col>
         </Form.Group>
