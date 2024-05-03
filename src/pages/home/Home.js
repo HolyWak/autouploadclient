@@ -13,13 +13,15 @@ import Tag from './Tag';
 import Gender from './Gender';
 import RepImg from './RepImg';
 import AccountInfo from './Account';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Loading from '../../comoponents/Loading';
 
 
 
 
 
 function Home() {
+    const [isLoading, setIsLoading] = useState(false);
 
     // 구글 번역 응용 프로그램이 활성화되어 있는지 확인하는 함수
     function isTranslationAppEnabled() {
@@ -57,7 +59,7 @@ function Home() {
         if (!data.rep_img) missingFields.push('대표 이미지');
         //추가 이미지는 필수 값이 아님
         // if (!data.img_list) missingFields.push('추가 이미지');
-        if (!data.tag_list) missingFields.push('태그');
+        // if (!data.tag_list) missingFields.push('태그');
         // gender가 'FK' 또는 'MK'일 때 kids_age가 비어있는지 확인
         if ((data.gender === 'FK' || data.gender === 'MK') && !data.kids_age) {
             missingFields.push('키즈 연령');
@@ -68,7 +70,7 @@ function Home() {
             return;
         }
 
-
+        setIsLoading(true);
         const formData = new FormData();
         formData.append('account_info', data.account_info);
         formData.append('platform', data.platform);
@@ -83,7 +85,7 @@ function Home() {
         formData.append('arm_size', data.arm_size);
         formData.append('shoulder_size', data.shoulder_size);
         formData.append('recommended_age', data.recommended_age);
-        formData.append('shoes_size',data.shoes_size);
+        formData.append('shoes_size', data.shoes_size);
         formData.append('quality', data.quality);
         formData.append('content', data.content);
         formData.append('tag_list', data.tag_list);
@@ -117,13 +119,22 @@ function Home() {
                 })
                     .then(response => {
                         console.log('Data sent successfully:', response.data);
+                        setIsLoading(false); // 로딩 상태 종료
+                        alert(`응답 200. 성공`);
+                        window.location.reload();
                     })
                     .catch(error => {
                         console.error('Error sending data:', error);
+                        setIsLoading(false); // 로딩 상태 종료
+                        alert(`응답 200 아님. 실패`);
+                        window.location.reload();
                     });
             })
             .catch(error => {
                 console.error('Error fetching image:', error);
+                setIsLoading(false); // 로딩 상태 종료
+                alert(`fetching image error`);
+                window.location.reload();
             });
 
         // formData확인
@@ -145,6 +156,7 @@ function Home() {
 
     return (
         <div >
+            {isLoading && <Loading></Loading>}
             <div className='body'>
                 <div className='component'>
                     <AccountInfo></AccountInfo>
@@ -183,18 +195,12 @@ function Home() {
                 <div className='component'>
                     <Tag></Tag>
                 </div>
-
             </div>
             <div className='footer'>
-                <button className='footer-btn' onClick={postDataToServer}> 게시물 등록 </button>
+                <button className='footer-btn' disabled={isLoading} onClick={() => postDataToServer()}> 게시물 등록 </button>
             </div>
-
-
-
         </div>
     )
 }
-
-
 
 export default Home;
